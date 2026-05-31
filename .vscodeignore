@@ -2,5 +2,9 @@ src/**
 tsconfig.json
 .vscode/**
 node_modules/**
+refrence/**
 FIXES.md
-CHANGELOG.md
+.github/**
+scripts/**
+eslint.config.mjs
+.prettierrc

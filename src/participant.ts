@@ -22,7 +22,7 @@ export function registerChatParticipant(context: vscode.ExtensionContext): vscod
         stream.markdown(
           '⚠️ **No models available.**\n\n' +
           'Configure your endpoint first:\n' +
-          '`Ctrl+Shift+P` → **Custom LLM: Configure endpoint & API key**'
+          '`Ctrl+Shift+P` → **Copilot Custom LLM: Manage providers**'
         );
         return;
       }
@@ -31,7 +31,7 @@ export function registerChatParticipant(context: vscode.ExtensionContext): vscod
       // Otherwise fall back to the first available model.
       let model = models[0];
       const firstWord = request.prompt.trim().split(/\s+/)[0];
-      const byId = models.find(m => m.id === firstWord);
+      const byId = models.find(m => m.id === firstWord || m.id.endsWith(`/${firstWord}`));
       if (byId) {
         model = byId;
       }

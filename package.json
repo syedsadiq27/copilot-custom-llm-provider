@@ -1,20 +1,21 @@
 {
   "name": "copilot-custom-llm-provider",
   "displayName": "Copilot Custom LLM Provider",
-  "description": "Connect any OpenAI-compatible endpoint (Alibaba Qwen / DashScope, OpenRouter, ...) to GitHub Copilot Chat in VS Code.",
-  "version": "0.0.1",
+  "description": "Connect any OpenAI-compatible endpoint to GitHub Copilot Chat in VS Code.",
+  "version": "0.1.0",
   "publisher": "introfinity",
   "author": {
     "name": "Syed Sadiq",
     "url": "https://github.com/syedsadiq27"
   },
+  "homepage": "https://github.com/syedsadiq27/copilot-custom-llm-provider",
+  "bugs": {
+    "url": "https://github.com/syedsadiq27/copilot-custom-llm-provider/issues"
+  },
   "engines": {
     "vscode": "^1.119.0"
   },
-  "categories": [
-    "AI",
-    "Other"
-  ],
+  "categories": ["AI", "Chat"],
   "keywords": [
     "copilot",
     "llm",
@@ -22,18 +23,21 @@
     "qwen",
     "dashscope",
     "openrouter",
+    "litellm",
     "ai",
     "chat"
   ],
-  "icon": "icon.png",
+  "icon": "assets/logo.png",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/syedsadiq27/copilot-custom-llm-provider"
   },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "activationEvents": ["onStartupFinished"],
   "main": "./out/extension.js",
   "contributes": {
     "languageModelChatProviders": [
@@ -47,26 +51,38 @@
       {
         "id": "custom-llm.qwen",
         "name": "qwen",
-        "description": "Chat with your custom LLM (Qwen / DashScope / any OpenAI-compatible endpoint)",
+        "description": "Route one chat turn through your custom LLM",
         "isSticky": false
       }
     ],
     "commands": [
       {
         "command": "custom-llm.addProvider",
-        "title": "Custom LLM: Add provider"
+        "title": "Copilot Custom LLM: Add provider"
       },
       {
         "command": "custom-llm.manageProviders",
-        "title": "Custom LLM: Manage providers"
+        "title": "Copilot Custom LLM: Manage providers"
       },
       {
         "command": "custom-llm.refreshModels",
-        "title": "Custom LLM: Refresh model list from API"
+        "title": "Copilot Custom LLM: Refresh model list from API"
       },
       {
         "command": "custom-llm.testConnection",
-        "title": "Custom LLM: Test connection"
+        "title": "Copilot Custom LLM: Test connection"
+      },
+      {
+        "command": "custom-llm.showDiagnostics",
+        "title": "Copilot Custom LLM: Show diagnostics"
+      },
+      {
+        "command": "custom-llm.reportIssue",
+        "title": "Copilot Custom LLM: Report issue"
+      },
+      {
+        "command": "custom-llm.helpAndFeedback",
+        "title": "Copilot Custom LLM: Help & feedback"
       }
     ],
     "configuration": {
@@ -75,26 +91,17 @@
         "customLlm.providers": {
           "type": "array",
           "default": [],
-          "description": "List of OpenAI-compatible providers. Each item: { name, baseUrl, apiKey }",
+          "description": "OpenAI-compatible providers (API keys stored in VS Code Secret Storage).",
           "items": {
             "type": "object",
-            "required": [
-              "name",
-              "baseUrl",
-              "apiKey"
-            ],
+            "required": ["name", "baseUrl"],
             "properties": {
-              "name": {
-                "type": "string",
-                "description": "Display name, e.g. Alibaba DashScope"
-              },
-              "baseUrl": {
-                "type": "string",
-                "description": "Base URL ending with /v1"
-              },
+              "id": { "type": "string", "description": "Stable provider slug" },
+              "name": { "type": "string", "description": "Display name" },
+              "baseUrl": { "type": "string", "description": "Base URL ending with /v1" },
               "apiKey": {
                 "type": "string",
-                "description": "API key (sk-...)"
+                "description": "Deprecated — keys are migrated to Secret Storage automatically"
               }
             }
           }
@@ -102,17 +109,64 @@
         "customLlm.models": {
           "type": "array",
           "default": [],
-          "description": "Auto-populated by model discovery. Each item: { id, name, providerUrl, maxInputTokens, maxOutputTokens }"
+          "description": "Auto-populated by model discovery."
+        },
+        "customLlm.defaultMaxOutputTokens": {
+          "type": "number",
+          "default": 16000,
+          "minimum": 1,
+          "description": "Default max output tokens when model info is missing."
+        },
+        "customLlm.defaultContextLength": {
+          "type": "number",
+          "default": 128000,
+          "minimum": 1,
+          "description": "Default context length when model info is missing."
+        },
+        "customLlm.maxOutputTokensCap": {
+          "type": "number",
+          "default": 65536,
+          "minimum": 1,
+          "description": "Upper cap for max_tokens sent to the API."
+        },
+        "customLlm.modelParameters": {
+          "type": "object",
+          "default": {},
+          "description": "Per-model API parameters (temperature, top_p, max_tokens, etc.). Prefix match on model id; use providerId/model-id when multiple providers (e.g. alibaba-dashscope/qwen3-coder-plus).",
+          "additionalProperties": { "type": "object" }
+        },
+        "customLlm.requestTimeout": {
+          "type": "number",
+          "default": 300000,
+          "minimum": 1000,
+          "description": "HTTP request timeout in milliseconds."
+        },
+        "customLlm.discoveryTimeout": {
+          "type": "number",
+          "default": 30000,
+          "minimum": 1000,
+          "description": "Model discovery timeout in milliseconds."
+        },
+        "customLlm.streamIdleTimeout": {
+          "type": "number",
+          "default": 300000,
+          "minimum": 10000,
+          "description": "Abort streaming if no SSE data for this many milliseconds."
+        },
+        "customLlm.maskApiKeyInput": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mask API key in input dialogs."
         },
         "customLlm.baseUrl": {
           "type": "string",
           "default": "",
-          "deprecationMessage": "Replaced by customLlm.providers. Will be migrated automatically."
+          "deprecationMessage": "Use customLlm.providers."
         },
         "customLlm.apiKey": {
           "type": "string",
           "default": "",
-          "deprecationMessage": "Replaced by customLlm.providers. Will be migrated automatically."
+          "deprecationMessage": "Use Secret Storage via Manage providers."
         }
       }
     }
@@ -120,11 +174,18 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "npm run compile && tsc -p tsconfig.test.json && node --test out/test/**/*.test.js"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.0",
     "@types/node": "^25.7.0",
     "@types/vscode": "^1.119.0",
-    "typescript": "^6.0.3"
+    "eslint": "^9.39.0",
+    "prettier": "^3.8.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.0"
   }
 }

@@ -5,7 +5,7 @@ Works out of the box with **Alibaba DashScope (Qwen)**, **MiniMax**, **OpenRoute
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.119%2B-007ACC?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=introfinity.copilot-custom-llm-provider)
-[![Version](https://img.shields.io/badge/version-0.0.1-brightgreen)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.1.0-brightgreen)](CHANGELOG.md)
 [![Issues](https://img.shields.io/github/issues/syedsadiq27/copilot-custom-llm-provider)](https://github.com/syedsadiq27/copilot-custom-llm-provider/issues)
 
 ---
@@ -124,36 +124,29 @@ Providers are stored in the `customLlm.providers` array. Each entry has the foll
 | `id` | Auto-generated slug used as a stable internal identifier (e.g. `"alibaba-dashscope"`). Set automatically — you don't need to write this by hand. |
 | `name` | Display name shown in the UI and info messages (e.g. `"Alibaba DashScope"`) |
 | `baseUrl` | Base URL ending with `/v1` |
-| `apiKey` | API key (`sk-…`). Leave empty if not required. |
+| `apiKey` | Deprecated — keys are stored in **VS Code Secret Storage** via **Manage providers** |
 
-The `id` slug is derived from the provider name when you add it via the wizard. It stays stable even if you later rename the provider or change its URL — so the model list never gets orphaned.
+The `id` slug is derived from the provider name when you add it via the wizard. API keys entered in the wizard are never written to `settings.json`.
 
-You can also edit settings directly in **User Settings JSON** (`Ctrl+Shift+P` → `Open User Settings (JSON)`):
+### Advanced settings
+
+| Setting | Default | Description |
+| ------- | ------- | ----------- |
+| `customLlm.defaultMaxOutputTokens` | `16000` | Fallback max output tokens |
+| `customLlm.maxOutputTokensCap` | `65536` | Hard cap for `max_tokens` per request |
+| `customLlm.modelParameters` | `{}` | Per-model API params (`temperature`, `top_p`, etc.) |
+| `customLlm.requestTimeout` | `300000` | HTTP timeout (ms) |
+| `customLlm.streamIdleTimeout` | `300000` | SSE idle abort (ms) |
+
+Example `modelParameters`:
 
 ```json
-"customLlm.providers": [
-  {
-    "id": "alibaba-dashscope",
-    "name": "Alibaba DashScope",
-    "baseUrl": "https://coding-intl.dashscope.aliyuncs.com/v1",
-    "apiKey": "sk-YOUR-KEY-HERE"
-  },
-  {
-    "id": "minimax",
-    "name": "MiniMax",
-    "baseUrl": "https://api.minimaxi.chat/v1",
-    "apiKey": "YOUR-MINIMAX-KEY-HERE"
-  },
-  {
-    "id": "openrouter",
-    "name": "OpenRouter",
-    "baseUrl": "https://openrouter.ai/api/v1",
-    "apiKey": "sk-or-YOUR-KEY-HERE"
-  }
-]
+"customLlm.modelParameters": {
+  "qwen3-coder": { "temperature": 0 },
+  "alibaba-dashscope/qwen3-coder-plus": { "temperature": 0 },
+  "openrouter/gpt-4": { "temperature": 0.8, "top_p": 0.9 }
+}
 ```
-
-> **Migration:** Existing configs without an `id` field are upgraded automatically on first launch — no manual action needed. Legacy `customLlm.baseUrl` / `customLlm.apiKey` settings (pre-v0.4.0) and the old `providerUrl` field on models (pre-v0.5.0) are both migrated silently.
 
 ### Model list
 
@@ -187,6 +180,9 @@ If no providers are configured or the API is unreachable, the extension falls ba
 | `Custom LLM: Manage providers` | List, edit, or remove configured providers |
 | `Custom LLM: Refresh model list from API` | Manually re-fetch models from all configured providers |
 | `Custom LLM: Test connection` | Send a test request to each configured provider and report the result |
+| `Copilot Custom LLM: Show diagnostics` | Log environment and connection snapshot to Output |
+| `Copilot Custom LLM: Report issue` | Open a pre-filled GitHub issue |
+| `Copilot Custom LLM: Help & feedback` | Diagnostics, docs, or report issue |
 
 ---
 

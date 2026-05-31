@@ -1,10 +1,21 @@
 # Changelog
 
-## v0.0.1 — June 2026
+## v0.1.0 — June 2026
+
+### Features
+
+- API keys stored in VS Code Secret Storage (migrated from settings automatically)
+- Configurable `modelParameters` (temperature, top_p, max_tokens, etc.) with prefix matching
+- Configurable token limits, request/discovery/stream idle timeouts
+- Per-model capabilities (tool calling, vision, PDF) from discovery and heuristics
+- Multi-provider model IDs (`providerId/modelId` when multiple providers)
+- PDF attachment support in chat messages
+- Diagnostics, report issue, and help commands
+- Modular provider architecture; unit tests for core request routing
 
 ### Initial release
 
-- Initial release, inspired by [vscode-custom-llm-provider](https://github.com/milhaus123/vscode-custom-llm-provider)
+- Inspired by [vscode-custom-llm-provider](https://github.com/milhaus123/vscode-custom-llm-provider)
 - Repository: [syedsadiq27/copilot-custom-llm-provider](https://github.com/syedsadiq27/copilot-custom-llm-provider)
 - Extension ID: `introfinity.copilot-custom-llm-provider`
 
