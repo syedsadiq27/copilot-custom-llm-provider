@@ -1,13 +1,12 @@
-# Custom LLM Provider
+# Copilot Custom LLM Provider
 
 Connect any **OpenAI-compatible** AI endpoint to GitHub Copilot Chat in Visual Studio Code.  
 Works out of the box with **Alibaba DashScope (Qwen)**, **MiniMax**, **OpenRouter**, **Ollama**, **LiteLLM**, **vLLM**, and any other API that speaks the OpenAI `/v1/chat/completions` format — including self-hosted models.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![VS Code](https://img.shields.io/badge/VS%20Code-1.119%2B-007ACC?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=MartinRiha.vscode-custom-llm-provider)
-[![Version](https://img.shields.io/badge/version-0.4.9-brightgreen)](CHANGELOG.md)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy%20me%20a%20coffee-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/martinriha)
-[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsor-EA4AAA?logo=github-sponsors)](https://github.com/sponsors/milhaus123)
+[![VS Code](https://img.shields.io/badge/VS%20Code-1.119%2B-007ACC?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=syedsadiq27.copilot-custom-llm-provider)
+[![Version](https://img.shields.io/badge/version-0.0.1-brightgreen)](CHANGELOG.md)
+[![Issues](https://img.shields.io/github/issues/syedsadiq27/copilot-custom-llm-provider)](https://github.com/syedsadiq27/copilot-custom-llm-provider/issues)
 
 ---
 
@@ -288,8 +287,8 @@ The old `customLlm.baseUrl` and `customLlm.apiKey` settings are automatically mi
 
 ```bash
 # Clone the repository
-git clone https://github.com/milhaus123/vscode-custom-llm-provider.git
-cd vscode-custom-llm-provider
+git clone https://github.com/syedsadiq27/copilot-custom-llm-provider.git
+cd copilot-custom-llm-provider
 
 # Install dev dependencies
 npm install
@@ -298,30 +297,28 @@ npm install
 npm run compile
 
 # Package as .vsix
-npx vsce package
-# Publish to the marketplace
-npx vsce publish 
+npx @vscode/vsce package
 
-# zvýší a publikuje
-npx vsce publish patch     
+# Publish to the marketplace (requires VSCE_PAT)
+npx @vscode/vsce publish -p <YOUR_VSCE_PAT>
+
+# Bump patch version and publish
+npx @vscode/vsce publish patch -p <YOUR_VSCE_PAT>
 
 # Install locally
-code --install-extension vscode-custom-llm-provider-*.vsix
+code --install-extension copilot-custom-llm-provider-*.vsix
 ```
 
 ---
 
-## 💖 Support the Project
+## 💬 Issues & feedback
 
-If this extension saves you time, consider buying me a coffee!
-
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Buy%20me%20a%20coffee-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/martinriha)
-[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsor-EA4AAA?logo=github-sponsors)](https://github.com/sponsors/milhaus123)
-
-Your support helps keep the project maintained and updated with new model releases. 🙏
+Report bugs and request features on [GitHub Issues](https://github.com/syedsadiq27/copilot-custom-llm-provider/issues).
 
 ---
 
 ## 📄 License
 
-[MIT](LICENSE) © 2026 Martin Říha
+[MIT](LICENSE) © 2026 Syed Sadiq
+
+Inspired by [vscode-custom-llm-provider](https://github.com/milhaus123/vscode-custom-llm-provider) by Martin Říha (MIT).

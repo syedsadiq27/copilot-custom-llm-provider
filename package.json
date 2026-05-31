@@ -1,12 +1,12 @@
 {
-  "name": "vscode-custom-llm-provider",
-  "displayName": "Custom LLM Provider",
+  "name": "copilot-custom-llm-provider",
+  "displayName": "Copilot Custom LLM Provider",
   "description": "Connect any OpenAI-compatible endpoint (Alibaba Qwen / DashScope, OpenRouter, ...) to GitHub Copilot Chat in VS Code.",
-  "version": "0.4.9",
-  "publisher": "MartinRiha",
+  "version": "0.0.1",
+  "publisher": "syedsadiq27",
   "author": {
-    "name": "Martin Riha",
-    "url": "https://github.com/milhaus123"
+    "name": "Syed Sadiq",
+    "url": "https://github.com/syedsadiq27"
   },
   "engines": {
     "vscode": "^1.119.0"
@@ -29,7 +29,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/milhaus123/vscode-custom-llm-provider"
+    "url": "https://github.com/syedsadiq27/copilot-custom-llm-provider"
   },
   "activationEvents": [
     "onStartupFinished"
@@ -39,7 +39,7 @@
     "languageModelChatProviders": [
       {
         "vendor": "custom-llm",
-        "displayName": "Custom LLM",
+        "displayName": "Copilot Custom LLM",
         "managementCommand": "custom-llm.manageProviders"
       }
     ],
@@ -70,7 +70,7 @@
       }
     ],
     "configuration": {
-      "title": "Custom LLM Provider",
+      "title": "Copilot Custom LLM Provider",
       "properties": {
         "customLlm.providers": {
           "type": "array",

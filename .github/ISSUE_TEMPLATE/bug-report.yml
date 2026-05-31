@@ -3,7 +3,7 @@ description: Report a bug or unexpected behavior in the Custom LLM Provider exte
 title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
-  - milhaus123
+  - syedsadiq27
 body:
   - type: markdown
     attributes:

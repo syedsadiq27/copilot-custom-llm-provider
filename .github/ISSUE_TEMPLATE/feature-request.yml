@@ -3,7 +3,7 @@ description: Suggest an idea for the Custom LLM Provider extension
 title: "[Feature]: "
 labels: ["enhancement", "triage"]
 assignees:
-  - milhaus123
+  - syedsadiq27
 body:
   - type: markdown
     attributes:

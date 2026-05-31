@@ -3,7 +3,7 @@
 # before making the repository public on GitHub.
 #
 # On Windows, run in Git Bash:
-#   cd "C:\Users\martin.riha\Martin Repos\Custom-LLM-provider"
+#   cd path/to/copilot-custom-llm-provider
 #   bash prepare-for-github.sh
 
 set -e

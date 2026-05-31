@@ -40,7 +40,7 @@ const baseUrl: string = cfg.get('baseUrl') ?? 'https://dashscope.aliyuncs.com/co
 **Fix:** Added:
 ```json
 "lib": ["ES2022", "DOM"],
-"forceConsistentCasingInFileNames": true,
+"forceConsistentCasingInFileNames": true,j
 "resolveJsonModule": true,
 "sourceMap": true
 ```
@@ -170,7 +170,7 @@ npm run compile
 npx vsce package
 
 # Install locally
-code --install-extension vscode-custom-llm-provider-0.1.0.vsix
+code --install-extension copilot-custom-llm-provider-0.1.0.vsix
 ```
 
 ---

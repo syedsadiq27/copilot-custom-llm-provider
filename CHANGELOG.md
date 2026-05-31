@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.0.1 — June 2026
+
+### Initial release
+
+- Initial release, inspired by [vscode-custom-llm-provider](https://github.com/milhaus123/vscode-custom-llm-provider)
+- Repository: [syedsadiq27/copilot-custom-llm-provider](https://github.com/syedsadiq27/copilot-custom-llm-provider)
+- Extension ID: `syedsadiq27.copilot-custom-llm-provider`
+
+---
+
 ## v0.4.8 — May 2026
 
 ### Bug fixes

@@ -37,7 +37,7 @@ jobs:
 
           # Check if release was created by repo owner
           CREATOR="${{ github.event.release.author.login }}"
-          if [ "$CREATOR" = "milhaus123" ]; then
+          if [ "$CREATOR" = "syedsadiq27" ]; then
             echo "is_owner=true" >> $GITHUB_OUTPUT
           else
             echo "is_owner=false" >> $GITHUB_OUTPUT
