@@ -6,7 +6,7 @@
 
 - Initial release, inspired by [vscode-custom-llm-provider](https://github.com/milhaus123/vscode-custom-llm-provider)
 - Repository: [syedsadiq27/copilot-custom-llm-provider](https://github.com/syedsadiq27/copilot-custom-llm-provider)
-- Extension ID: `syedsadiq27.copilot-custom-llm-provider`
+- Extension ID: `introfinity.copilot-custom-llm-provider`
 
 ---
 

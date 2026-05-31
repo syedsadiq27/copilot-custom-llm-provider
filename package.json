@@ -3,7 +3,7 @@
   "displayName": "Copilot Custom LLM Provider",
   "description": "Connect any OpenAI-compatible endpoint (Alibaba Qwen / DashScope, OpenRouter, ...) to GitHub Copilot Chat in VS Code.",
   "version": "0.0.1",
-  "publisher": "syedsadiq27",
+  "publisher": "introfinity",
   "author": {
     "name": "Syed Sadiq",
     "url": "https://github.com/syedsadiq27"

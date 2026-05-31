@@ -4,7 +4,7 @@ Connect any **OpenAI-compatible** AI endpoint to GitHub Copilot Chat in Visual S
 Works out of the box with **Alibaba DashScope (Qwen)**, **MiniMax**, **OpenRouter**, **Ollama**, **LiteLLM**, **vLLM**, and any other API that speaks the OpenAI `/v1/chat/completions` format — including self-hosted models.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![VS Code](https://img.shields.io/badge/VS%20Code-1.119%2B-007ACC?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=syedsadiq27.copilot-custom-llm-provider)
+[![VS Code](https://img.shields.io/badge/VS%20Code-1.119%2B-007ACC?logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=introfinity.copilot-custom-llm-provider)
 [![Version](https://img.shields.io/badge/version-0.0.1-brightgreen)](CHANGELOG.md)
 [![Issues](https://img.shields.io/github/issues/syedsadiq27/copilot-custom-llm-provider)](https://github.com/syedsadiq27/copilot-custom-llm-provider/issues)
 
