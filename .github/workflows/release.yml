@@ -68,12 +68,14 @@ jobs:
           echo "⚠️ WARNING: Release was created by ${{ github.event.release.author.login }}"
           echo "Proceeding because version verification passed, but this will be logged."
 
+      - name: Package VSIX
+        run: npx vsce package --no-dependencies
+
       - name: Publish to VS Code Marketplace
-        run: npx vsce publish -p ${{ secrets.VSCE_PAT }}
+        run: npx vsce publish -p ${{ secrets.VSCE_PAT }} --packagePath "$(ls -1 *.vsix | head -1)"
 
       - name: Upload VSIX to GitHub Release
-        run: |
-          gh release upload ${{ github.event.release.tag_name }} *.vsix --clobber
+        run: gh release upload ${{ github.event.release.tag_name }} *.vsix --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
